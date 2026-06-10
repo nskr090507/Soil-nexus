@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FarmSense AI Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>FarmSense Dashboard</h1>
+    <!-- Network Status Banner -->
+<div id="network-banner" style="display:none;">
+    <span id="system-status">Offline - Reconnecting...</span>
+</div>
+
+    <div class="card">
+        <h3>Soil Health Metrics</h3>
+         <p>Moisture Content: <span id="soil-moisture">--</span>%</p>
+<p>Temperature: <span id="air-temp">--</span>°C</p>
+<p>Humidity: <span id="humidity">--</span>%</p>
+<p>pH Level: <span id="ph-level">--</span></p>
+    </div>
+
+    <div class="card">
+        <h3>System Advisory Alerts</h3>
+        <p>Status: <span>Waiting for data...</span></p>
+        <div class="status-light"></div>
+    </div>
+    <div class="card" id="ai-card">
+    <h3>AI Advisory</h3>
+    <div id="ai-recommendation">Waiting for AI response...</div>
+</div> <!-- Alert Card -->
+<div class="card" id="alert-card">
+    <h3>⚠️ Field Alert</h3>
+    <div id="moisture-alert"></div>
+</div>
+
+
+<script src="app.js"></script></body>
+</html>
