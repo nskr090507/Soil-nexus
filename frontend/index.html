@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FarmSense AI Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -35,6 +36,23 @@
     <h3>⚠️ Field Alert</h3>
     <div id="moisture-alert"></div>
 </div>
+<!-- Real Time Sensor Chart -->
+<div class="card" id="chart-card">
+    <h3>📈 Real-Time Sensor Trends</h3>
+    <canvas id="telemetryChart"></canvas>
+</div>
+
+<!-- AI Advisory Placeholder Card -->
+<div class="card" id="ai-advisory-card">
+    <h3>🤖 AI Crop Advisory</h3>
+    <div id="ai-advisory-content">
+        <div class="advisory-ring">
+            <p id="advisory-message">Waiting for AI insights...</p>
+        </div>
+    </div>
+</div>
+
+
 
 
 <script src="app.js"></script></body>

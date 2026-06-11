@@ -82,3 +82,58 @@ h1 {
         font-size: 14px;
     }
 }
+/* Chart Card */
+#chart-card {
+    max-width: 600px;
+}
+
+/* AI Advisory Card */
+#ai-advisory-card {
+    max-width: 500px;
+    border: 2px solid #8e44ad;
+}
+
+/* Advisory Ring - Default */
+.advisory-ring {
+    padding: 15px;
+    border-radius: 10px;
+    border: 3px solid #cccccc;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+/* Advisory Ring - Critical State */
+.ring-critical {
+    border-color: #ff4444;
+    background-color: #fff0f0;
+    color: #cc0000;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.6);
+    animation: glow-red 1.5s infinite;
+}
+
+/* Advisory Ring - Stable State */
+.ring-stable {
+    border-color: #2ecc71;
+    background-color: #f0fff4;
+    color: #1e8449;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+}
+
+/* Glowing animation for critical alert */
+@keyframes glow-red {
+    0%   { box-shadow: 0 0 5px rgba(255,68,68,0.4); }
+    50%  { box-shadow: 0 0 20px rgba(255,68,68,0.9); }
+    100% { box-shadow: 0 0 5px rgba(255,68,68,0.4); }
+}
+
+/* Mobile fix for chart */
+@media (max-width: 600px) {
+    #chart-card {
+        max-width: 100%;
+    }
+    #ai-advisory-card {
+        max-width: 100%;
+    }
+}
