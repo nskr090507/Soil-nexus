@@ -231,3 +231,38 @@ h1 {
     color: #e74c3c;
     font-weight: bold;
 }
+/* AI Insight Panel */
+#ai-advisory-panel {
+    border: 3px solid #16a085;
+    background-color: #eafaf1;
+    max-width: 500px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#ai-advisory-panel h3 {
+    color: #16a085;
+    margin-top: 0;
+}
+
+#advisory-message-text {
+    font-size: 16px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Disease Warning Tag */
+#disease-warning-tag {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    animation: glow-red 1.5s infinite;
+}
+
+.hidden {
+    display: none;
+}

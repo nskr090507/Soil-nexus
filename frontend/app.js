@@ -89,16 +89,14 @@ function fetchLiveMetrics() {
         })
         .catch(error => showNetworkAlert("Offline - Reconnecting..."));
 
-    // Fetch AI prediction
+     // Fetch AI prediction
     fetch('https://farmsense-backend.com/predict_irrigation')
         .then(response => response.json())
         .then(data => {
             showAIAdvice(data);
+            updateAdvisoryMessage(data);
+            checkDiseaseWarning(data);
 
-            // Parse complex prediction payload
-            if (data.ai_advisory) {
-                document.getElementById('ai-advisory-text').innerText = data.ai_advisory;
-            }
             if (data.confidence_score !== undefined) {
                 const pct = (data.confidence_score * 100).toFixed(1);
                 document.getElementById('confidence-badge').innerText = pct + '%';
@@ -106,8 +104,7 @@ function fetchLiveMetrics() {
             }
         })
         .catch(error => console.log("AI not reachable yet"));
-}
-
+    }
 // ─── UPDATE SENSOR VALUES ───
 function updateDashboard(data) {
     document.getElementById('soil-moisture').innerText = data.moisture;
@@ -156,7 +153,38 @@ function showAIAdvice(data) {
         box.style.color = "#1e8449";
     }
 }
+// ─── DYNAMIC ADVISORY MESSAGE ───
+function updateAdvisoryMessage(data) {
+    const msg = document.getElementById('advisory-message-text');
+    if (data.irrigation_required === 1) {
+        msg.innerText = "Advisory: Soil moisture levels dropping. Schedule irrigation within the next 2 hours.";
+    } else {
+        msg.innerText = "Advisory: Soil condition optimal. No watering needed.";
+    }
 
+    // Fertilizer status (if backend sends it)
+    if (data.fertilizer_status !== undefined) {
+        if (data.fertilizer_status === 1) {
+            msg.innerText += " Fertilizer application recommended this week.";
+        } else {
+            msg.innerText += " Fertilizer levels are sufficient.";
+        }
+    }
+}
+// ─── DISEASE WARNING CHECK ───
+function checkDiseaseWarning(data) {
+    const tag = document.getElementById('disease-warning-tag');
+    const statusLight = document.querySelector('.status-light');
+
+    // Example threshold: high humidity + high temp = disease risk
+    if (data.disease_risk === 1) {
+        tag.classList.remove('hidden');
+        statusLight.style.backgroundColor = '#e74c3c'; // red alert
+    } else {
+        tag.classList.add('hidden');
+        statusLight.style.backgroundColor = '#2ecc71'; // green safe
+    }
+}
 // ─── NETWORK SPEED TRACKER ───
 function trackNetworkSpeed(responseTime) {
     const speedDisplay = document.getElementById('network-speed');
