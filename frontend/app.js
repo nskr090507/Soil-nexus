@@ -49,6 +49,28 @@ const telemetryChart = new Chart(ctx, {
         }
     }
 });
+// ─── OFFLINE DEMO MODE ───
+let demoMode = false;
+
+function loadDemoData() {
+    fetch('mock_demo_data.json')
+        .then(response => response.json())
+        .then(mock => {
+            hideNetworkAlert();
+            updateDashboard(mock.sensor_data);
+            updateChartInstance(mock.sensor_data);
+            document.getElementById('ph-reading').innerText = mock.sensor_data.pH;
+            document.getElementById('humidity-reading').innerText = mock.sensor_data.humidity;
+
+            showAIAdvice(mock.prediction);
+            updateAdvisoryMessage(mock.prediction);
+            checkDiseaseWarning(mock.prediction);
+
+            const pct = (mock.prediction.confidence_score * 100).toFixed(1);
+            document.getElementById('confidence-badge').innerText = pct + '%';
+            document.getElementById('confidence-score-display').innerText = pct + '%';
+        });
+}
 
 // ─── UPDATE CHART ───
 function updateChartInstance(newData) {
@@ -214,7 +236,32 @@ function hideNetworkAlert() {
 function handleNetworkTimeout() {
     showNetworkAlert("Offline - Reconnecting to FarmSense Network...");
 }
-
+// ─── TOGGLE CHART VISIBILITY ───
+document.getElementById('toggle-chart-btn').addEventListener('click', function() {
+    const canvas = document.getElementById('telemetryChart');
+    if (canvas.style.display === 'none') {
+        canvas.style.display = 'block';
+        this.innerText = 'Hide Chart';
+    } else {
+        canvas.style.display = 'none';
+        this.innerText = 'Show Chart';
+    }
+});
+// ─── DEMO MODE TOGGLE ───
+document.getElementById('demo-mode-btn').addEventListener('click', function() {
+    demoMode = !demoMode;
+    if (demoMode) {
+        this.innerText = 'Disable Demo Mode';
+        clearInterval(pollTimer);
+        loadDemoData();
+        pollTimer = setInterval(loadDemoData, 3000);
+    } else {
+        this.innerText = 'Enable Demo Mode';
+        clearInterval(pollTimer);
+        pollTimer = setInterval(fetchLiveMetrics, pollInterval);
+        fetchLiveMetrics();
+    }
+});
 // ─── AUTO REFRESH EVERY 3 SECONDS ───//  
 // // ─── ADAPTIVE POLLING FOR SLOW NETWORKS ───
 let pollInterval = 3000;

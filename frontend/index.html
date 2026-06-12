@@ -11,6 +11,7 @@
 
     <h1>FarmSense Dashboard</h1>
     <!-- Network Status Banner -->
+     <button id="demo-mode-btn">Enable Demo Mode</button>
 <div id="network-banner" style="display:none;">
     <span id="system-status">Offline - Reconnecting...</span>
 </div>
@@ -69,12 +70,12 @@
     <h3>⚠️ Field Alert</h3>
     <div id="moisture-alert"></div>
 </div>
-<!-- Real Time Sensor Chart -->
+ <!-- Real Time Sensor Chart -->
 <div class="card" id="chart-card">
     <h3>📈 Real-Time Sensor Trends</h3>
+    <button id="toggle-chart-btn">Hide Chart</button>
     <canvas id="telemetryChart"></canvas>
 </div>
-
  <!-- AI Advisory Panel -->
 <div class="card" id="ai-advisory-card">
     <h3>🤖 AI Crop Advisory Panel</h3>
